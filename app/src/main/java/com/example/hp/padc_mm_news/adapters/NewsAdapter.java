@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hp.padc_mm_news.R;
+import com.example.hp.padc_mm_news.delegates.NewsItemsDelegate;
 import com.example.hp.padc_mm_news.viewholders.NewsViewHolder;
 
 /**
@@ -16,9 +17,11 @@ import com.example.hp.padc_mm_news.viewholders.NewsViewHolder;
 public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private LayoutInflater mLayoutInflater;
+    private NewsItemsDelegate mNewsItemDelegate;
 
-    public NewsAdapter(Context context) {
+    public NewsAdapter(Context context, NewsItemsDelegate newsItemsDelegate) {
         mLayoutInflater = LayoutInflater.from(context);
+        mNewsItemDelegate = newsItemsDelegate;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         *   We can also get the context by above way
         */
         View newsItemView = mLayoutInflater.inflate(R.layout.view_item_news, parent, false);
-        return new NewsViewHolder(newsItemView);
+        return new NewsViewHolder(newsItemView,mNewsItemDelegate);
     }
 
     @Override
