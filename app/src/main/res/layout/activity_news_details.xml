@@ -14,9 +14,9 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="256dp"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:fitsSystemWindows="true">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_news_details_images"
@@ -25,6 +25,51 @@
                 android:fitsSystemWindows="true">
 
             </android.support.v4.view.ViewPager>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_publication_logo"
+                    android:layout_width="@dimen/logo_size"
+                    android:layout_height="@dimen/logo_size"
+                    android:src="@drawable/img_publication_logo_placeholder"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="36dp"
+                    android:layout_marginLeft="@dimen/margin_medium_2"/>
+
+                <TextView
+                    android:id="@+id/tv_publication_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eleven Media"
+                    android:layout_toRightOf="@id/iv_publication_logo"
+                    android:layout_alignTop="@id/iv_publication_logo"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:textSize="@dimen/text_regular_3x"
+                    android:textColor="@color/white_full"
+                    android:layout_marginLeft="@dimen/margin_medium_2"
+                    android:shadowColor="@color/black_full"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"/>
+
+                <TextView
+                    android:id="@+id/tv_publication_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Posted At: Jan 01 - 06:30AM"
+                    android:layout_toRightOf="@id/iv_publication_logo"
+                    android:layout_below="@id/tv_publication_name"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_alignBottom="@id/iv_publication_logo"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:textColor="@color/white_full"
+                    android:layout_marginLeft="@dimen/margin_medium_2"/>
+
+
+            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
@@ -44,24 +89,56 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_news_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_medium_2"
                 android:lineSpacingMultiplier="1.3"
-                android:text="@string/dummy_news_detail" />
+                android:text="@string/dummy_news_detail"
+                android:textColor="@color/primary_text"
+                android:paddingBottom="80dp"/>
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white_full"
+        android:padding="@dimen/margin_medium_2"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/btn_comment"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="54dp"
+            android:text="@string/btn_comment_news"
+            android:gravity="center"
+            style="@style/AccentBorderButton"
+            android:drawableLeft="@drawable/ic_chat_bubble_outline_accent_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="54dp"
+            android:text="Send To"
+            android:gravity="center"
+            style="@style/AccentButton"
+            android:drawableLeft="@drawable/ic_send_white_24dp"
+            android:layout_marginLeft="@dimen/margin_medium_2"/>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium_2"
-        android:src="@drawable/ic_share_24dp"
+        android:src="@drawable/ic_favorite_border_white_24dp"
         app:layout_anchor="@id/appbar_layout"
         app:layout_anchorGravity="right|bottom" />
 
