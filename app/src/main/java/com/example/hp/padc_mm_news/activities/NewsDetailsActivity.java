@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.hp.padc_mm_news.R;
+import com.example.hp.padc_mm_news.adapters.NewsAdapter;
 import com.example.hp.padc_mm_news.adapters.NewsImagesPagerAdapter;
+import com.example.hp.padc_mm_news.adapters.RelatedNewsAdapter;
+import com.example.hp.padc_mm_news.components.SmartRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,13 +23,17 @@ import butterknife.ButterKnife;
 
 public class NewsDetailsActivity extends AppCompatActivity {
 
+    @BindView(R.id.vp_news_details_images)
+    ViewPager vpNewsDetailsImages;
+
+    @BindView(R.id.rv_related_news_list)
+    SmartRecyclerView rvRelatedNewsList;
+
     public static Intent newIntent(Context context){
         Intent intent = new Intent(context,NewsDetailsActivity.class);
         return intent;
     }
 
-    @BindView(R.id.vp_news_details_images)
-    ViewPager vpNewsDetailsImages;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,5 +44,9 @@ public class NewsDetailsActivity extends AppCompatActivity {
         NewsImagesPagerAdapter newsImagesPagerAdapter = new NewsImagesPagerAdapter(getApplicationContext());
         vpNewsDetailsImages.setAdapter(newsImagesPagerAdapter);
 
+        RelatedNewsAdapter relatedNewsAdapter = new RelatedNewsAdapter(getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        rvRelatedNewsList.setAdapter(relatedNewsAdapter);
+        rvRelatedNewsList.setLayoutManager(linearLayoutManager);
     }
 }

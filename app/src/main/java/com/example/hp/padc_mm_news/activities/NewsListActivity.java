@@ -17,6 +17,8 @@ import android.view.MenuItem;
 
 import com.example.hp.padc_mm_news.R;
 import com.example.hp.padc_mm_news.adapters.NewsAdapter;
+import com.example.hp.padc_mm_news.components.EmptyViewPod;
+import com.example.hp.padc_mm_news.components.SmartRecyclerView;
 import com.example.hp.padc_mm_news.delegates.NewsItemsDelegate;
 
 import butterknife.BindView;
@@ -26,6 +28,12 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+
+    @BindView(R.id.rv_news_list)
+    SmartRecyclerView rvNewsList;
+
+    @BindView(R.id.vp_empty_news)
+    EmptyViewPod vpEmptyNews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +53,11 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
             }
         });
 
-        RecyclerView rvNews = findViewById(R.id.rv_news_list);
+        rvNewsList.setEmptyView(vpEmptyNews);
         NewsAdapter newsAdapter = new NewsAdapter(getApplicationContext(), this);
-        rvNews.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+        rvNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
-        rvNews.setAdapter(newsAdapter);
+        rvNewsList.setAdapter(newsAdapter);
     }
 
     @Override

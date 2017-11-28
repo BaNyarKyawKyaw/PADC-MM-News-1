@@ -94,12 +94,29 @@
             <TextView
                 android:id="@+id/tv_news_details"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_medium_2"
                 android:lineSpacingMultiplier="1.3"
                 android:text="@string/dummy_news_detail"
+                android:textColor="@color/primary_text"/>
+
+            <TextView
+                android:id="@+id/tv_related_news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Related News"
+                android:textSize="@dimen/text_heading_1x"
                 android:textColor="@color/primary_text"
-                android:paddingBottom="80dp"/>
+                android:layout_below="@id/tv_news_details"
+                android:layout_margin="@dimen/margin_medium_2"
+                android:background="@drawable/bg_bottom_underline"/>
+
+            <com.example.hp.padc_mm_news.components.SmartRecyclerView
+                android:id="@+id/rv_related_news_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_related_news_title"
+                android:paddingBottom="95dp"/>
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -141,5 +158,6 @@
         android:src="@drawable/ic_favorite_border_white_24dp"
         app:layout_anchor="@id/appbar_layout"
         app:layout_anchorGravity="right|bottom" />
+
 
 </android.support.design.widget.CoordinatorLayout>

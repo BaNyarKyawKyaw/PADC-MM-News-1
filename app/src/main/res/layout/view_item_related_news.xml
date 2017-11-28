@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginRight="@dimen/margin_card_medium">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_news_hero_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dummy_news_5"/>
+
+        <ImageView
+            android:id="@+id/iv_favourite_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_border_primary_24dp"
+            android:layout_alignTop="@id/iv_news_hero_image"
+            android:layout_alignRight="@id/iv_news_hero_image"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:foreground="@drawable/bg_ripple_white"
+            android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/tv_publication_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eleven Sport Media"
+            android:layout_below="@id/iv_news_hero_image"
+            android:layout_margin="@dimen/margin_small"
+            android:textColor="@color/primary_text"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_regular_3x"/>
+
+        <TextView
+            android:id="@+id/tv_brief_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:lineSpacingMultiplier="1.3"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="@string/dummy_news"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_regular"
+            android:layout_below="@id/tv_publication_name"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
