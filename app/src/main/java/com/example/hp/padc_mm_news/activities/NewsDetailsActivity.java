@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by HP on 11/11/2017.
  */
 
-public class NewsDetailsActivity extends AppCompatActivity {
+public class NewsDetailsActivity extends BaseActivity {
 
     @BindView(R.id.vp_news_details_images)
     ViewPager vpNewsDetailsImages;

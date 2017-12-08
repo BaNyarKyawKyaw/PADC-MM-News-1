@@ -48,26 +48,22 @@ public class SmartRecyclerView extends RecyclerView {
 
     /*check if adapter connect to SRV is empty. If so ,show emptyView;.
      */
-    public void setEmptyView(View emptyView){
+    public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
     }
 
     private void checkIfEmpty() {
-        boolean isEmpty = getAdapter().getItemCount()==0;
+        boolean isEmpty = getAdapter().getItemCount() == 0;
         if (mEmptyView != null) {
             mEmptyView.setVisibility(isEmpty ? View.VISIBLE : View.INVISIBLE);
             setVisibility(isEmpty ? View.INVISIBLE : View.VISIBLE);
         }
     }
 
-
-
-
     @Override
     public void setAdapter(Adapter adapter) {
         Adapter oldAdapter = getAdapter();
-        if (oldAdapter != null)
-        {
+        if (oldAdapter != null) {
             oldAdapter.unregisterAdapterDataObserver(dataObserver);
         }
         super.setAdapter(adapter);

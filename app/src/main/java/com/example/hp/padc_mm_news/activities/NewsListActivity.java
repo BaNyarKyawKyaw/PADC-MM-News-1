@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,12 +21,22 @@ import com.example.hp.padc_mm_news.R;
 import com.example.hp.padc_mm_news.adapters.NewsAdapter;
 import com.example.hp.padc_mm_news.components.EmptyViewPod;
 import com.example.hp.padc_mm_news.components.SmartRecyclerView;
+import com.example.hp.padc_mm_news.data.model.NewsModel;
+import com.example.hp.padc_mm_news.data.vo.NewsVO;
 import com.example.hp.padc_mm_news.delegates.NewsItemsDelegate;
+import com.example.hp.padc_mm_news.events.RestApiEvents;
+import com.example.hp.padc_mm_news.events.TapNewsEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsListActivity extends AppCompatActivity implements NewsItemsDelegate {
+public class NewsListActivity extends BaseActivity implements NewsItemsDelegate {
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -35,11 +47,13 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
     @BindView(R.id.vp_empty_news)
     EmptyViewPod vpEmptyNews;
 
+    private NewsAdapter mNewsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
-        ButterKnife.bind(this,this);
+        ButterKnife.bind(this, this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,10 +68,15 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
         });
 
         rvNewsList.setEmptyView(vpEmptyNews);
-        NewsAdapter newsAdapter = new NewsAdapter(getApplicationContext(), this);
+        mNewsAdapter = new NewsAdapter(getApplicationContext(), this);
         rvNewsList.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
-        rvNewsList.setAdapter(newsAdapter);
+        rvNewsList.setAdapter(mNewsAdapter);
+
+//        List<NewsVO> mNewsList = NewsModel.getInstance().getmNewsList();
+//        if (mNewsList != null) {
+//            mNewsAdapter.appendNewData(mNewsList);
+//        }
     }
 
     @Override
@@ -80,6 +99,22 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -107,4 +142,15 @@ public class NewsListActivity extends AppCompatActivity implements NewsItemsDele
         Intent intent = NewsDetailsActivity.newIntent(getApplicationContext());
         startActivity(intent);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewsDataLoaded(RestApiEvents.NewsDataLoadedEvent event) {
+        mNewsAdapter.appendNewData(event.getLoadedNews());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onErrorInvokingAPI(RestApiEvents.ErrorInvokingAPIEvent event) {
+        Snackbar.make(rvNewsList, event.getErrorMsg(), Snackbar.LENGTH_INDEFINITE).show();
+    }
+
 }
